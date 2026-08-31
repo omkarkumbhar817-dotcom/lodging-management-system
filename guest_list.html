@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guest Management</title>
+</head>
+
+<body>
+
+    <h1>Guest Management</h1>
+
+    <a href="{% url 'dashboard' %}">← Dashboard</a>
+    |
+    <a href="{% url 'guest_create' %}">+ Add Guest</a>
+
+    <hr>
+
+    {% if guests %}
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Identity Type</th>
+            <th>Identity Number</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for guest in guests %}
+
+        <tr>
+            <td>{{ guest.guest_id }}</td>
+
+            <td>{{ guest.full_name }}</td>
+
+            <td>{{ guest.address }}</td>
+
+            <td>{{ guest.contact_number }}</td>
+
+            <td>{{ guest.email }}</td>
+
+            <td>{{ guest.get_identity_type_display }}</td>
+
+            <td>{{ guest.identity_number }}</td>
+
+            <td>
+                <a href="{% url 'guest_detail' guest.guest_id %}">
+                    View
+                </a>
+
+                |
+
+                <a href="{% url 'guest_update' guest.guest_id %}">
+                    Edit
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+        <h3>No guests registered yet.</h3>
+
+        <a href="{% url 'guest_create' %}">
+            Add First Guest
+        </a>
+
+    {% endif %}
+
+</body>
+</html>
